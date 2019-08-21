@@ -1,17 +1,22 @@
 package server
 
 import (
+	"fmt"
 	"go-test/api"
+	"go-test/middleware"
+	"os"
 
 	"github.com/gin-gonic/gin"
-	//"github.com/thinkerou/favicon"
 	"net/http"
 )
 
 // Router 路由配置
 func Router() *gin.Engine {
 	r := gin.Default()
-	//r.Use(favicon.New("./favicon.ico")) // 运行目录下的favicon.ico
+	// 使用Cookie 缓存 session
+	fmt.Println("os.env -> SESSION_SECRET", os.Getenv("SESSION_SECRET"))
+	r.Use(middleware.Session(os.Getenv("SESSION_SECRET")))
+
 	// 路由
 	group := r.Group("/")
 	{
@@ -21,9 +26,6 @@ func Router() *gin.Engine {
 		group.GET("get/header", api.GetHeader)
 		group.GET("get/body", api.GetBody)
 		group.GET("get/jsonp", api.Jsonp)
-
-		// Listen and serve on 0.0.0.0:8080
-		r.Run(":8080")
 
 		// 此规则能够匹配/user/john这种格式，但不能匹配/user/ 或 /user这种格式
 		group.GET("/user/:name", func(c *gin.Context) {
@@ -57,8 +59,12 @@ func Router() *gin.Engine {
 		})
 
 		group.POST("get/user", api.GetUserByID)
-
 	}
+	sessionGroup := r.Group("/session")
+	{
+		sessionGroup.GET("/test", api.Test)
+	}
+
 	gin.SetMode("debug")
 	return r
 }
