@@ -60,13 +60,13 @@ func Router() *gin.Engine {
 
 		group.POST("get/user", api.GetUserByID)
 	}
+
 	sessionGroup := r.Group("/session")
 	{
 		// 单session
 		sessionGroup.GET("/basic", api.Basic)
 		// 多session
 		sessionGroup.GET("/multiple", api.Multiple)
-
 	}
 
 	gin.SetMode("debug")

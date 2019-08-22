@@ -30,7 +30,6 @@ func Multiple(c *gin.Context) {
 
 	session.Set("name", name)
 	session.Save()
-
 	sessionEnv.Set("age", age)
 	sessionEnv.Save()
 
