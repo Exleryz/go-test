@@ -16,6 +16,7 @@ func Router() *gin.Engine {
 	// 使用Cookie 缓存 session
 	fmt.Println("os.env -> SESSION_SECRET", os.Getenv("SESSION_SECRET"))
 	r.Use(middleware.Session(os.Getenv("SESSION_SECRET")))
+	r.Use(middleware.Cors())
 
 	// 路由
 	group := r.Group("/")
