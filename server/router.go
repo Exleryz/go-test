@@ -64,6 +64,9 @@ func Router() *gin.Engine {
 	{
 		// 单session
 		sessionGroup.GET("/basic", api.Basic)
+		// 多session
+		sessionGroup.GET("/multiple", api.Multiple)
+
 	}
 
 	gin.SetMode("debug")
