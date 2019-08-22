@@ -62,7 +62,8 @@ func Router() *gin.Engine {
 	}
 	sessionGroup := r.Group("/session")
 	{
-		sessionGroup.GET("/test", api.Test)
+		// 单session
+		sessionGroup.GET("/basic", api.Basic)
 	}
 
 	gin.SetMode("debug")

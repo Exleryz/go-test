@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func Test(c *gin.Context) {
+func Basic(c *gin.Context) {
 	name := c.Query("name")
 
 	session := sessions.Default(c)
